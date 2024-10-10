@@ -81,10 +81,10 @@ with tab1:
     for i in range(len(indeling3[0])):
         outputtabel2.append([i+1, indeling3[0][i], onderling3[0][i], indeling3[1][i], onderling3[1][i]])
 
-    print('\nContinue net: \nVeld2:')
-    print('hangdraad   afstand van begin[m]   afstand onderling[m]')
+    '\nContinue net: \nVeld2:'
+    'hangdraad   afstand van begin[m]   afstand onderling[m]'
     for i in range(len(indeling2[0])):
-            print(f'    {i+1}                {indeling2[0][i]:5.2f}               {onderling2[0][i]:5.2f}')
+            f'    {i+1}                {indeling2[0][i]:5.2f}               {onderling2[0][i]:5.2f}'
     print('\n Veld 3:')
     for i in range(len(indeling3[0])):
             print(f'    {i+1}                {indeling3[0][i]:5.2f}               {onderling3[0][i]:5.2f}')
