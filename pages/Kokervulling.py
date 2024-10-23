@@ -222,7 +222,8 @@ kabels = {
         '2x16 NGKB': 16.0,
         'HDPE 40': 44.0,
         '48x9/125SM': 16.0,
-        'Placeholder': 10.0
+        'Placeholder': 10.0,
+        'Koker-in-koker':10.0
     }
 }
 
@@ -311,11 +312,11 @@ else:
     # Pie-chart weergeven
     st.pyplot(fig)
 
-min_koker='nog niet berekend'
-    
+min_koker='Koker 45x60'
 for key in kokers:
-    if kokers[key]*0.75 > totale_oppervlakte_kabels:
-        min_koker = key
+    if kokers[key]*0.75 > totale_oppervlakte_kabels and kokers[key]<kokers[min_koker]:
+        min_koker=key
     
 st.write("### Minimale koker")
-st.write('De minimaal benodigde koker voor de opgegeven kabels is: ',min_koker) 
+st.write('De totale oppervlakte van de gekozen kabels: ', totale_oppervlakte_kabels)
+st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker, '" met een oppervlakte van ', kokers[min_koker]) 
