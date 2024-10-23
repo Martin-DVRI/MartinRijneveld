@@ -319,4 +319,4 @@ for key in kokers:
     
 st.write("### Minimale koker")
 st.write('De totale oppervlakte van de gekozen kabels: ', totale_oppervlakte_kabels)
-st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker, '" /n Deze heeft een oppervlakte van ', kokers[min_koker]) 
+st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker, '" \n Deze heeft een oppervlakte van ', kokers[min_koker]) 
