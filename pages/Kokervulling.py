@@ -294,7 +294,7 @@ if totale_oppervlakte_kabels > oppervlakte_koker:
 else:
     # Bereken de resterende ruimte in de koker
     resterende_oppervlakte = oppervlakte_koker - totale_oppervlakte_kabels
-    if totale_oppervlakte_kabels/oppervlakte_koker >0.75:
+    if totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
         st.warning('De vullingsgraad is meer dan 75%')
 
     # Pie-chart gegevens voorbereiden
@@ -314,9 +314,9 @@ else:
 
 min_koker='Koker 45x60'
 for key in kokers:
-    if kokers[key]*0.75 > totale_oppervlakte_kabels and kokers[key]<kokers[min_koker]:
+    if kokers[key] * 0.75 > totale_oppervlakte_kabels and kokers[key] < kokers[min_koker]:
         min_koker=key
     
 st.write("### Minimale koker")
 st.write('De totale oppervlakte van de gekozen kabels: ', totale_oppervlakte_kabels)
-st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker, '" \n Deze heeft een oppervlakte van ', kokers[min_koker]) 
+st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker, '".  Deze heeft een oppervlakte van ', kokers[min_koker]) 
