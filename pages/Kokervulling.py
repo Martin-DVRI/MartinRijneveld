@@ -310,3 +310,12 @@ else:
 
     # Pie-chart weergeven
     st.pyplot(fig)
+
+min_koker='nog niet berekend'
+    
+for key in kokers:
+    if kokers[key]*0.75 > totale_oppervlakte_kabels:
+        min_koker = key
+    
+st.write("### Minimale koker")
+st.write('De minimaal benodigde koker voor de opgegeven kabels is: ',min_koker) 
