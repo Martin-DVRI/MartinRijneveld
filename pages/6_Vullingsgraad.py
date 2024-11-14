@@ -245,7 +245,7 @@ st.header("Kabelkeuze")
 
 # Dropdown voor het aantal inputregels
 #num_inputs = st.selectbox("Selecteer het aantal kabels in de koker", range(1, 11))
-num_inputs = st.number_input("Selecteer het aantal kabels in de koker", min_value=1, max_value=100, step=1)
+num_inputs = st.number_input("Selecteer het aantal kabeltypes in de koker", min_value=1, max_value=100, step=1)
 
 # Lijsten om de inputwaarden op te slaan
 kabel_categorieen = []
@@ -290,7 +290,7 @@ for i in range(num_inputs):
 
 # Resultaten weergeven
 st.write("### Ingevoerde gegevens")
-st.write(f"Geselecteerde koker: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
+st.write(f"Geselecteerde koker/buis: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
 for i in range(num_inputs):
     st.write(f"Input {i+1}: {namen[i]}  <>  {kabels_soorten[i]}  <>  {aantallen[i]} x {diameters[i]:.2f} mm")
 
@@ -311,10 +311,10 @@ else:
     sizes = oppervlaktes_kabels + [resterende_oppervlakte]
     #colors = plt.cm.Paired(range(len(labels)))
     colors=['#%02x%02x%02x' % (0, int(255 - 255 * i / len(namen)), 0) for i in range(len(namen))]
-    if totale_oppervlakte_kabels/oppervlakte_koker > 0.50:
-        colors.append('#ffa500')
-    elif totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
+    if totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
         colors.append('#ff0000')
+    elif totale_oppervlakte_kabels/oppervlakte_koker > 0.50:
+        colors.append('#ffa500')
     else:
         colors.append('#ffffe0')
 
