@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 
 # Titel en subtitel
-st.title("K&L - Kokervulling")
+st.title("K&L - Vullingsgraad")
 st.subheader("Applicatie om de vullingsgraad te bepalen")
-st.write("Dit is een applicatie die aan de hand vangegeven koker en kabels aangeeft wat de vullingsgraad is van de koker.")
+st.write("Dit is een applicatie die aan de hand van gegeven koker/buis en kabels aangeeft wat de vullingsgraad is van de koker/buis.")
 
 # Dictionary met kokers en hun oppervlaktes
 kokers = {
@@ -228,14 +228,14 @@ kabels = {
 }
 
 # Header 'Kokerkeuze' en dropdown
-st.header("Kokerkeuze")
-kokerkeuze = st.selectbox("Selecteer een koker", list(kokers.keys()))
+st.header("Keuze koker/buis")
+kokerkeuze = st.selectbox("Selecteer een koker/buis", list(kokers.keys()))
 
 # Haal de oppervlakte van de gekozen koker uit de dictionary
 oppervlakte_koker = kokers[kokerkeuze]
 
 # Weergeven van de gekozen koker en de oppervlakte
-st.write(f"Gekozen koker: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
+st.write(f"Gekozen: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
 
 # Pagedivider
 st.markdown("---")
@@ -258,32 +258,32 @@ aantallen=[]
 # Dynamisch genereren van inputregels
 st.header("Kabels")
 for i in range(num_inputs):
-    st.markdown(f"#### Kabel {i+1}")
+    st.markdown(f"#### Input {i+1}")
     
     col1, col2, col3 = st.columns([1.5, 2.5, 1.5])
     
     with col1:
-        kabel_categorie = st.selectbox(f"Gebruik kabel {i+1}", list(kabels.keys()), key=f'kabel_categorie_{i}')
+        kabel_categorie = st.selectbox(f"Categorie ", list(kabels.keys()), key=f'kabel_categorie_{i}')
         kabel_categorieen.append(kabel_categorie)
     
     with col2:
-        kabel_soort = st.selectbox(f"Soort kabel {i+1}", list(kabels[kabel_categorie].keys()), key=f'kabel_soort_{i}')
+        kabel_soort = st.selectbox(f"Type kabel ", list(kabels[kabel_categorie].keys()), key=f'kabel_soort_{i}')
         kabels_soorten.append(kabel_soort)
     
     with col3:
         # Haal de diameter van het gekozen kabeltype uit de nested dictionary
         default_diameter = kabels[kabel_categorie][kabel_soort]
-        diameter = st.number_input(f"Diameter {i+1} [mm]", min_value=0.0, step=0.1, value=default_diameter, key=f'diameter_{i}')
+        diameter = st.number_input(f"Diameter [mm]", min_value=0.0, step=0.1, value=default_diameter, key=f'diameter_{i}')
         diameters.append(diameter)
     
     col4, col5 = st.columns([1.5, 1.5])
     
     with col4:
-        naam = st.text_input(f"Naam {i+1}", placeholder="name", key=f'naam_{i}')
+        naam = st.text_input(f"Naam ", placeholder="name", key=f'naam_{i}')
         namen.append(naam)
     
     with col5:
-        aantal = st.number_input(f"Aantal {i+1}", min_value=1, step=1, value=1, key=f'aantal_{i}')
+        aantal = st.number_input(f"Aantal ", min_value=1, step=1, value=1, key=f'aantal_{i}')
         aantallen.append(aantal)
         oppervlakte_kabel = 0.25 * math.pi * (diameter ** 2) * aantal
         oppervlaktes_kabels.append(oppervlakte_kabel)
@@ -292,7 +292,7 @@ for i in range(num_inputs):
 st.write("### Ingevoerde gegevens")
 st.write(f"Geselecteerde koker: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
 for i in range(num_inputs):
-    st.write(f"Kabel {i+1}: {namen[i]}  <>  {kabels_soorten[i]}  <>  {aantallen[i]} x {diameters[i]:.2f} mm")
+    st.write(f"Input {i+1}: {namen[i]}  <>  {kabels_soorten[i]}  <>  {aantallen[i]} x {diameters[i]:.2f} mm")
 
 # Totale oppervlakte van de kabels berekenen
 totale_oppervlakte_kabels = sum(oppervlaktes_kabels)
@@ -311,10 +311,12 @@ else:
     sizes = oppervlaktes_kabels + [resterende_oppervlakte]
     #colors = plt.cm.Paired(range(len(labels)))
     colors=['#%02x%02x%02x' % (0, int(255 - 255 * i / len(namen)), 0) for i in range(len(namen))]
-    if totale_oppervlakte_kabels/oppervlakte_koker >0.75:
+    if totale_oppervlakte_kabels/oppervlakte_koker > 0.50:
+        colors.append('#ffa500')
+    elif totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
         colors.append('#ff0000')
     else:
-        colors.append('#ffcc66')
+        colors.append('#ffffe0')
 
     # Pie-chart maken
     fig, ax = plt.subplots()
