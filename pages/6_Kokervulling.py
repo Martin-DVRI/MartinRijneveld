@@ -223,7 +223,7 @@ kabels = {
         'HDPE 40': 44.0,
         '48x9/125SM': 16.0,
         'Placeholder': 10.0,
-        'Koker-in-koker':10.0
+        'Koker-in-koker':100
     }
 }
 
@@ -253,11 +253,14 @@ kabels_soorten = []
 namen = []
 diameters = []
 oppervlaktes_kabels = []
+aantallen=[]
 
 # Dynamisch genereren van inputregels
 st.header("Kabels")
 for i in range(num_inputs):
-    col1, col2, col3, col4 = st.columns([1.3, 1.8, 1.8, 1])
+    st.markdown(f"#### Kabel {i+1}")
+    
+    col1, col2, col3 = st.columns([1.5, 2.5, 1.5])
     
     with col1:
         kabel_categorie = st.selectbox(f"Gebruik kabel {i+1}", list(kabels.keys()), key=f'kabel_categorie_{i}')
@@ -268,22 +271,28 @@ for i in range(num_inputs):
         kabels_soorten.append(kabel_soort)
     
     with col3:
-        naam = st.text_input(f"Naam {i+1}", placeholder="name", key=f'naam_{i}')
-        namen.append(naam)
-    
-    with col4:
         # Haal de diameter van het gekozen kabeltype uit de nested dictionary
         default_diameter = kabels[kabel_categorie][kabel_soort]
         diameter = st.number_input(f"Diameter {i+1} [mm]", min_value=0.0, step=0.1, value=default_diameter, key=f'diameter_{i}')
         diameters.append(diameter)
-        oppervlakte_kabel = 0.25 * math.pi * (diameter ** 2)
+    
+    col4, col5 = st.columns([1.5, 1.5])
+    
+    with col4:
+        naam = st.text_input(f"Naam {i+1}", placeholder="name", key=f'naam_{i}')
+        namen.append(naam)
+    
+    with col5:
+        aantal = st.number_input(f"Aantal {i+1}", min_value=1, step=1, value=1, key=f'aantal_{i}')
+        aantallen.append(aantal)
+        oppervlakte_kabel = 0.25 * math.pi * (diameter ** 2) * aantal
         oppervlaktes_kabels.append(oppervlakte_kabel)
 
 # Resultaten weergeven
 st.write("### Ingevoerde gegevens")
 st.write(f"Geselecteerde koker: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
 for i in range(num_inputs):
-    st.write(f"Kabel {i+1}: {kabel_categorieen[i]}, {kabels_soorten[i]}, {namen[i]}, Diameter - {diameters[i]:.2f} mm")
+    st.write(f"Kabel {i+1}: {namen[i]}  /  {kabels_soorten[i]}  /  {aantallen[i]} x {diameters[i]:.2f} mm")
 
 # Totale oppervlakte van de kabels berekenen
 totale_oppervlakte_kabels = sum(oppervlaktes_kabels)
@@ -294,14 +303,18 @@ if totale_oppervlakte_kabels > oppervlakte_koker:
 else:
     # Bereken de resterende ruimte in de koker
     resterende_oppervlakte = oppervlakte_koker - totale_oppervlakte_kabels
-    if totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
+    if totale_oppervlakte_kabels/oppervlakte_koker >0.75:
         st.warning('De vullingsgraad is meer dan 75%')
 
     # Pie-chart gegevens voorbereiden
     labels = namen + ["Resterende ruimte"]
     sizes = oppervlaktes_kabels + [resterende_oppervlakte]
     #colors = plt.cm.Paired(range(len(labels)))
-    colors=['#%02x%02x%02x' % (0, int(255 - 255 * i / len(namen)), 0) for i in range(len(namen))] + ['#ff0000']
+    colors=['#%02x%02x%02x' % (0, int(255 - 255 * i / len(namen)), 0) for i in range(len(namen))]
+    if totale_oppervlakte_kabels/oppervlakte_koker >0.75:
+        colors.append('#ff0000')
+    else:
+        colors.append('#ffcc66')
 
     # Pie-chart maken
     fig, ax = plt.subplots()
@@ -312,12 +325,5 @@ else:
     # Pie-chart weergeven
     st.pyplot(fig)
 
-min_koker='Koker 45x60'
-for key in kokers:
-    if kokers[key] * 0.75 > totale_oppervlakte_kabels and kokers[key] < kokers[min_koker]:
-        min_koker=key
+   
     
-st.write("### Minimale koker")
-st.write('De totale oppervlakte van de gekozen kabels: ', totale_oppervlakte_kabels)
-st.write('De minimaal benodigde koker voor de opgegeven kabels is: "',min_koker,'".  '  
-         'Deze heeft een oppervlakte van ', kokers[min_koker]) 
