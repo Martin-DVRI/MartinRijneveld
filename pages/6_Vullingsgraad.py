@@ -314,7 +314,7 @@ else:
     if totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
         colors.append('#ff0000')
     elif totale_oppervlakte_kabels/oppervlakte_koker > 0.50:
-        colors.append('#ffa500')
+        colors.append('#ffcc99')
     else:
         colors.append('#ffffe0')
 
