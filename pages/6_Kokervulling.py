@@ -223,7 +223,7 @@ kabels = {
         'HDPE 40': 44.0,
         '48x9/125SM': 16.0,
         'Placeholder': 10.0,
-        'Koker-in-koker':100
+        'Koker-in-koker':100.0
     }
 }
 
