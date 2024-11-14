@@ -292,7 +292,7 @@ for i in range(num_inputs):
 st.write("### Ingevoerde gegevens")
 st.write(f"Geselecteerde koker: {kokerkeuze} met oppervlakte {oppervlakte_koker:.2f} mm²")
 for i in range(num_inputs):
-    st.write(f"Kabel {i+1}: {namen[i]}  /  {kabels_soorten[i]}  /  {aantallen[i]} x {diameters[i]:.2f} mm")
+    st.write(f"Kabel {i+1}: {namen[i]}  <>  {kabels_soorten[i]}  <>  {aantallen[i]} x {diameters[i]:.2f} mm")
 
 # Totale oppervlakte van de kabels berekenen
 totale_oppervlakte_kabels = sum(oppervlaktes_kabels)
