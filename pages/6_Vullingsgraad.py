@@ -314,9 +314,9 @@ else:
     if totale_oppervlakte_kabels/oppervlakte_koker > 0.75:
         colors.append('#ff0000')
     elif totale_oppervlakte_kabels/oppervlakte_koker > 0.50:
-        colors.append('#ffcc99')
+        colors.append('#fff600')
     else:
-        colors.append('#ffffe0')
+        colors.append('#ffcc99')
 
     # Pie-chart maken
     fig, ax = plt.subplots()
