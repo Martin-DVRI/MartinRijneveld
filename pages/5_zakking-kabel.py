@@ -8,13 +8,47 @@ def catenary(x, a, c):
     return a * np.cosh(x / a) + c
 
 # Streamlit invoer voor de ophangpunten en trekkracht
-#st.title("Hangende Kabel Berekening")
-x1 = st.number_input("Geef ophangpunt links (x1):", value=0.0)
-y1 = st.number_input("Geef ophangpunt links (y1):", value=8.0)
-x2 = st.number_input("Geef ophangpunt rechts (x2):", value=50.0)
-y2 = st.number_input("Geef ophangpunt rechts (y2):", value=8.0)
-H = st.number_input("Geef de horizontale trekkracht (H) in Newton:", value=20000.0)
-w = st.number_input("Geef het gewicht per eenheid lengte (w) in N/m:", value=100.0)
+st.title("Catenary equation")
+
+col1,col2,col3=st.columns([1,1,1])
+
+with col1:
+    y1 = st.number_input("Geef ophanghoogte links:", value=8.5)
+
+with col2:
+    x2 = st.number_input("Geef veldlengte:", value=50.0)
+
+with col3:
+    y2 = st.number_input("Geef ophanghoogte rechts:", value=8.5)
+
+# Informatie in tekstvorm
+st.write("""
+De trekkracht en het gewicht van de kabel bepalen de zakking. Zie hieronder voor wat bekende waardes:
+""")
+
+# Bekende waardes in een tabel
+data = [
+    {'Type Kabel': 'Draagkabel(10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'Draagkabel(-20C)', 'Trekkracht (N)': 17300, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'Draagkabel b1-net(10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 30.56},
+    {'Type Kabel': 'VL(10C)', 'Trekkracht (N)': 6500, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'VL(-20C)', 'Trekkracht (N)': 13500, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'rijdraad 2x100(10C)', 'Trekkracht (N)': 20000, 'Gewicht per eenheid lengte (N/m)': 17.44}
+]
+
+# Tabel tonen
+st.table(data)
+
+col4,col5=st.columns([1,1])
+
+with col4:
+    H = st.number_input("Geef de horizontale trekkracht in Newton:", value=6500.0)
+
+with col5:
+    w = st.number_input("Geef het gewicht per eenheid lengte in N/m:", value=13.12)
+
+x1 = 0.0
+
 
 # Bereken de constante a
 a = H / w
@@ -54,4 +88,13 @@ st.write('---')
 #print(y_values)
 Lowest_point = round(min(y_values),2)
 Lowest_point_place = round((np.argmin(y_values)+1)*((x2-x1)/500),2)
-st.write('the lowest point is at ', Lowest_point_place,'m with a heigth of ',Lowest_point,'m.')
+st.write(f'the lowest point is at {Lowest_point_place}m with a heigth of {Lowest_point}m.')
+
+col6,col7=st.columns([1,2])
+with col6:
+    distance = st.number_input("Geef afstand gewenste hoogte [m]:", value=Lowest_point_place, step=0.5)
+with col7:
+    Xpoint=int(distance/x2*499)
+    hoogte=y_values[Xpoint]
+    st.write('de kabelhoogte op ingegeven afstand:')
+    st.write(f"{hoogte:.3} m")
