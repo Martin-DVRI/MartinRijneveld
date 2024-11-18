@@ -88,7 +88,7 @@ st.write('---')
 #print(y_values)
 Lowest_point = round(min(y_values),2)
 Lowest_point_place = round((np.argmin(y_values)+1)*((x2-x1)/500),2)
-st.write(f'the lowest point is at {Lowest_point_place}m with a heigth of {Lowest_point}m.')
+st.write(f'Het laagste punt is op {Lowest_point_place}m met een hoogte van {Lowest_point}m.')
 
 col6,col7=st.columns([1,2])
 with col6:
