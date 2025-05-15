@@ -28,9 +28,12 @@ De trekkracht en het gewicht van de kabel bepalen de zakking. Zie hieronder voor
 
 # Bekende waardes in een tabel
 data = [
-    {'Type Kabel': 'Draagkabel(10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 13.12},
-    {'Type Kabel': 'Draagkabel(-20C)', 'Trekkracht (N)': 17300, 'Gewicht per eenheid lengte (N/m)': 13.12},
-    {'Type Kabel': 'Draagkabel b1-net(10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 30.56},
+    {'Type Kabel': 'Draagkabel 150 (10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'Draagkabel 150 (-20C)', 'Trekkracht (N)': 17300, 'Gewicht per eenheid lengte (N/m)': 13.12},
+    {'Type Kabel': 'Draagkabel 70 (10C)', 'Trekkracht (N)': 9400, 'Gewicht per eenheid lengte (N/m)': 5.85},
+    {'Type Kabel': 'Draagkabel 70 (-20C)', 'Trekkracht (N)': 12700, 'Gewicht per eenheid lengte (N/m)': 5.85},
+    {'Type Kabel': 'Draagkabel 150 b1-net(10C)', 'Trekkracht (N)': 10800, 'Gewicht per eenheid lengte (N/m)': 30.56},
+    {'Type Kabel': 'Draagkabel 70 b1-net(10C)', 'Trekkracht (N)': 9400, 'Gewicht per eenheid lengte (N/m)': 19.15},
     {'Type Kabel': 'VL(10C)', 'Trekkracht (N)': 6500, 'Gewicht per eenheid lengte (N/m)': 13.12},
     {'Type Kabel': 'VL(-20C)', 'Trekkracht (N)': 13500, 'Gewicht per eenheid lengte (N/m)': 13.12},
     {'Type Kabel': 'rijdraad 2x100(10C)', 'Trekkracht (N)': 20000, 'Gewicht per eenheid lengte (N/m)': 17.44}
@@ -42,7 +45,7 @@ st.table(data)
 col4,col5=st.columns([1,1])
 
 with col4:
-    H = st.number_input("Geef de horizontale trekkracht in Newton:", value=6500.0)
+    H = st.number_input("Geef de horizontale trekkracht in Newton:", value=10800.0)
 
 with col5:
     w = st.number_input("Geef het gewicht per eenheid lengte in N/m:", value=13.12)
