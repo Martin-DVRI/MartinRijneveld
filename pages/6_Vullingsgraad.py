@@ -283,7 +283,7 @@ for i in range(num_inputs):
         namen.append(naam)
     
     with col5:
-        aantal = st.number_input(f"Aantal ", min_value=1, step=1, value=1, key=f'aantal_{i}')
+        aantal = st.number_input(f"Aantal ", min_value=0, step=1, value=1, key=f'aantal_{i}')
         aantallen.append(aantal)
         oppervlakte_kabel = 0.25 * math.pi * (diameter ** 2) * aantal
         oppervlaktes_kabels.append(oppervlakte_kabel)
